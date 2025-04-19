@@ -1,0 +1,71 @@
+<!-- Right Side (Form) -->
+ <div class="w-full md:w-1/2 p-8">
+    <h2 class="text-3xl font-bold">Parent Registration</h2>
+    <p class="text-gray-400 mt-2">Already have an account? <a href="login.html" class="text-blue-400">Log in</a></p>
+    <form id="parregform" class="mt-4 space-y-4">
+        <input type="text" id="parName" placeholder="Full Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <input type="text" id="childName" placeholder="Ward Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <input type="text" id="childDep" placeholder="Ward's Department" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <textarea id="addressp" placeholder="Address" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" rows="3" required></textarea>
+        <select id="parRole" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+            <option value="father">Father</option>
+            <option value="mother">Mother</option>
+            <option value="guardian">Guardian</option>
+        </select>
+        <input type="email" id ="email" placeholder="Email" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <input type="tel" id="phone" placeholder="Phone Number" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <input type="password" id="password" placeholder="Enter your password" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <input type="password" id="conPassword" placeholder="Confirm Password" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+        <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-md">Register</button>
+    </form>
+</div>
+</div>
+
+<script>
+document.getElementById("parregform").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const parName = document.getElementById("parName").value;
+    const childName = document.getElementById("childName").value;
+    const childDep = document.getElementById("childDep").value;
+    const addressp = document.getElementById("addressp").value;
+    const parRole = document.getElementById("parRole").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
+    const conPassword = document.getElementById("conPassword").value;
+
+    if (password !== conPassword) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    const response = await fetch("http://localhost:5000/register-parent", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ parName, childName, childDep , addressp , parRole , email , phone, password })
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+        alert(result.message);
+        window.location.href = "login.html";
+    } else {
+        alert(result.error);
+    }
+});
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

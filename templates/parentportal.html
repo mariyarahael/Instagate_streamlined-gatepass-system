@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Portal - Gate Pass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <div class="w-1/5 bg-gray-800 p-6 flex flex-col space-y-6">
+            <h2 class="text-2xl font-bold text-yellow-400">Parent Portal</h2>
+            <nav class="space-y-4">
+                <a href="#" class="block p-3 bg-gray-700 rounded-lg hover:bg-yellow-400 hover:text-gray-900">🏠 Dashboard</a>
+                <a href="/allgpas" class="block p-3 bg-gray-700 rounded-lg hover:bg-yellow-400 hover:text-gray-900">📜 Gate Pass Requests</a>
+                <a href="/linkstudent" class="block p-3 bg-gray-700 rounded-lg hover:bg-yellow-400 hover:text-gray-900">📚 Register Another Child</a>
+                <a href="/logout" class="block p-3 bg-gray-700 rounded-lg hover:bg-yellow-400 hover:text-gray-900">Logout</a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-6">
+            <h1 class="text-3xl font-bold mb-6">Gate Pass Overview</h1>
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Graph -->
+                <div class="bg-gray-800 p-6 rounded-lg col-span-2">
+                    <h2 class="text-xl font-semibold mb-4">Gate Pass Requests (This Month)</h2>
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Gate Pass List -->
+            <div class="bg-gray-800 p-6 rounded-lg mt-6">
+                <h2 class="text-xl font-semibold mb-4">Pending Gate Pass Requests</h2>
+                <ul id="gatePassList" class="space-y-3">
+                    {% for pass_data in gp %} 
+                    {% set pass = pass_data[0] %}
+                    {% set student_name = pass_data[1] %}
+                    
+                    {% if pass.status == 'pending' %}
+                        <li class="p-3 bg-gray-700 rounded-lg flex justify-between items-center">
+                            <span>
+                                <strong>Student:</strong> {{ student_name }}<br>
+                                📅 {{ pass.going_date }} - ⏰ {{ pass.going_time }}<br>
+                                <strong>Reason:</strong> {{ pass.reason }}<br>
+                                <strong>Place:</strong> {{ pass.place }}
+                            </span>
+                            <a href="/parentsanction/{{ pass.id }}" class="text-blue-400 hover:text-blue-300 underline">
+                                Sanction
+                            </a>
+                        </li>  
+                    {% endif %}
+                    {% endfor %}                                  
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let gatePassData = {
+            labels: ['Approved', 'Pending', 'Rejected'],
+            data: {{ [(gpass|selectattr('status', 'in', ['approved', 'parent_approved'])|list|length),  
+                      gpass|selectattr('status', 'equalto', 'pending')|list|length, 
+                      gpass|selectattr('status', 'equalto', 'rejected')|list|length, 0] | tojson }}
+        };
+
+        let statusData = {
+            approved: {{ gpass|selectattr('status', 'in', ['approved', 'parent_approved'])|list|length }}
+        };
+
+        new Chart(document.getElementById('barChart'), {
+            type: 'bar',
+            data: {
+                labels: gatePassData.labels,
+                datasets: [{
+                    label: 'Gate Pass Requests',
+                    data: gatePassData.data,
+                    backgroundColor: ['rgba(54, 162, 235, 0.7)', 'rgba(255, 206, 86, 0.7)', 'rgba(255, 99, 132, 0.7)'],
+                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: { responsive: true }
+        });
+
+        new Chart(document.getElementById('doughnutChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Approved'],
+                datasets: [{
+                    data: [statusData.approved],
+                    backgroundColor: ['rgba(54, 162, 235, 0.7)']
+                }]
+            },
+            options: { responsive: true }
+        });
+    </script>
+</body>
+</html>
+

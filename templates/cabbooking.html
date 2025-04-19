@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col">
+    
+    <!-- Header -->
+    <header class="w-full bg-gray-800 py-4 text-center text-yellow-400 text-2xl font-bold shadow-md">
+        InstaGate - Cab Booking
+    </header>
+    
+    <!-- Main Content -->
+    <div class="flex flex-1 w-full">
+        <!-- Sidebar -->
+        <div class="hidden md:flex flex-col p-8 bg-gray-700 w-1/4 min-h-full">
+            <h2 class="text-3xl font-extrabold text-yellow-400">🚖 Book Your Ride!</h2>
+            <nav class="mt-6 space-y-4">
+                <a href="#profile" class="block py-3 px-4 bg-gray-600 hover:bg-yellow-400 hover:text-gray-900 rounded-lg text-center font-semibold">Profile</a>
+                <a href="#settings" class="block py-3 px-4 bg-gray-600 hover:bg-yellow-400 hover:text-gray-900 rounded-lg text-center font-semibold">Settings</a>
+            </nav>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 p-8 overflow-y-auto">
+            <h3 class="text-3xl font-bold text-yellow-400 mb-6">Available Cabs</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Driver List -->
+                <script>
+                    function callDriver(phoneNumber) {
+                        window.location.href = `tel:${phoneNumber}`;
+                    }
+                </script>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Avarachan</span></p>
+                    <p class="text-gray-300">Phone: +91 97477 20322</p>
+                    <button onclick="callDriver('+919747720322')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Baby</span></p>
+                    <p class="text-gray-300">Phone: +91 98468 73112</p>
+                    <button onclick="callDriver('+919846873112')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Benny</span></p>
+                    <p class="text-gray-300">Phone: +91 80892 58112</p>
+                    <button onclick="callDriver('+918089258112')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Eldo</span></p>
+                    <p class="text-gray-300">Phone: +91 94471 59130</p>
+                    <button onclick="callDriver('+919447159130')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Jefry</span></p>
+                    <p class="text-gray-300">Phone: +91 94971 88938</p>
+                    <button onclick="callDriver('+919497188938')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+                
+                <div class="bg-gray-700 p-6 rounded-lg shadow-lg">
+                    <p class="text-xl font-semibold">Driver: <span class="text-yellow-400">Shaiju</span></p>
+                    <p class="text-gray-300">Phone: +91 98463 06297</p>
+                    <button onclick="callDriver('+919846306297')" class="mt-4 w-full py-3 bg-yellow-600 hover:bg-yellow-500 text-gray-900 font-semibold rounded-lg">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

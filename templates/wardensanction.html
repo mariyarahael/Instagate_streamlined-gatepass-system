@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Gate Pass Approval</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {}
+            }
+        };
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div class="bg-gray-800 p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <h2 class="text-2xl font-bold text-center text-yellow-400">Gate Pass Approval</h2>
+        
+        <div class="mt-6 space-y-4">
+            <p><strong>Request Date:</strong> <span id="requestDate">{{gp.request_date}}</span></p>
+            <p><strong>Reason:</strong> <span id="reason">{{gp.reason}}</span></p>
+            <p><strong>Going Date:</strong> <span id="goingDate">{{gp.going_date}}</span></p>
+            <p><strong>Return Date:</strong> <span id="returnDate">{{gp.return_date}}</span></p>
+            <p><strong>Place:</strong> <span id="place">{{gp.place}}</span></p>
+        </div>
+
+        <form action="/wardensanction/{{gp.id}}" method="post">
+            <div class="mt-6 flex justify-between">
+                <button type="submit" name="approve" class="bg-green-500 hover:bg-green-400 px-4 py-2 rounded-lg text-white">
+                    Approve
+                </button>
+                <button type="submit" name="reject" class="bg-red-500 hover:bg-red-400 px-4 py-2 rounded-lg text-white">
+                    Reject
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

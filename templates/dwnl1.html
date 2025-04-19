@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Pass Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="flex bg-gray-800 text-white rounded-xl shadow-lg w-full max-w-4xl p-8">
+        <!-- Right Side (Form) -->
+        <div class="w-full">
+            <h2 class="text-3xl font-bold mb-4">Download Gate Pass</h2>
+            <div class="space-y-2">
+                {% for gp in gatep %}
+                <p class="text-gray-400">
+                    <span class="font-semibold">Gate Pass Date:</span> {{ gp.going_date }}, 
+                    <span class="font-semibold">Time:</span> {{ gp.going_time }} 
+                    <a href="/dwnloadgp/{{ gp.id }}" class="text-blue-400 hover:text-blue-300 underline">Download</a>
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

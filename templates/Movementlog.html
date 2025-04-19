@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movement log</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-6">
+
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold mb-4">Movement Log</h1>
+
+    <!-- Search Section -->
+    <div class="flex justify-between items-center mb-4">
+        <form class="flex items-center space-x-2" role="search" action="/movementlog/searchslog" method="GET">
+            <input class="border border-gray-300 rounded-lg px-4 py-2 text-gray-900 bg-white 
+                   focus:outline-none focus:ring-2 focus:ring-amber-500" 
+                   type="search" name="query" placeholder="Search" aria-label="Search">
+            <button class="border border-amber-500 text-amber-600 px-4 py-2 rounded-lg 
+                           hover:bg-amber-500 hover:text-white transition">
+                Search
+            </button>
+        </form>       
+                 
+    </div>
+
+    <!-- Home Log Table -->
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full border-collapse border border-gray-700">
+            <thead>
+                <tr class="bg-gray-800">
+                    <th class="border border-gray-700 p-2">Name</th>
+                    <th class="border border-gray-700 p-2">Id</th>
+                    <th class="border border-gray-700 p-2">Room No</th>
+                    <th class="border border-gray-700 p-2">Date & Time of Leaving</th>
+                    <th class="border border-gray-700 p-2">Status</th>
+                    <th class="border border-gray-700 p-2">Gate Pass</th>
+                </tr>
+            </thead>
+            <tbody id="homeTable">
+                {%if students%}
+                {% for full_name, admno, hostel_room, going_date, going_time, status, id in students %}
+                <tr class="border border-gray-700">
+                    <td class="border border-gray-700 p-2">{{ full_name }}</td>
+                    <td class="border border-gray-700 p-2">{{ admno }}</td>
+                    <td class="border border-gray-700 p-2">{{ hostel_room }}</td>
+                    <td class="border border-gray-700 p-2">{{ going_date }} <br>{{ going_time }}</td>
+                    {%if status =='parent_approved'%}
+                    <td class="border border-gray-700 p-2"><a href="/wardensanction/{{ id }}" class="text-blue-400 hover:text-blue-300 underline">Sanction?</a></td>
+                    {%else%}
+                    <td class="border border-gray-700 p-2">{{ status }}</td>
+                    {%endif%}
+                    <td class="border border-gray-700 p-2"><a href="/dwnloadgp/{{ id }}" class="text-blue-400 hover:text-blue-300 underline">Download</a></td>
+                </tr>
+            {% endfor %}
+            {%endif%}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Back Button -->
+    <a href="/wportal" class="text-blue-400 hover:underline mt-4 inline-block">Go Back</a>
+
+</body>
+</html>

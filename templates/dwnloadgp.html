@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Gate Pass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+    <div class="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
+        <h2 class="text-2xl font-bold text-yellow-400 mb-4">Gate Pass</h2>
+        <p><strong>Admno:</strong> <span id="studentName">{{ gatepass.student_id }}</span></p>
+        <p><strong>ID:</strong> <span id="studentID">{{ gatepass.id }}</span></p>
+        <p><strong>Destination:</strong> <span id="destination">{{ gatepass.place }}</span></p>
+        <p><strong>Date:</strong> <span id="date">{{ gatepass.going_date.strftime('%Y-%m-%d') }}</span></p>
+        <p><strong>Time:</strong> <span id="time">{{ gatepass.going_time }}</span></p>
+        <p><strong>Status:</strong> <span id="status" class="{% if gatepass.status == 'approved' %}text-green-400{% elif gatepass.status == 'rejected' %}text-red-400{% else %}text-yellow-400{% endif %}">{{ gatepass.status }}</span></p>
+        
+         <!-- QR Code Container -->
+         <div id="qrcode" class="my-4"></div>
+
+        <button onclick="downloadPDF()" class="mt-4 w-full py-2 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-semibold rounded-lg">Download PDF</button>
+    </div>
+
+    <script>
+
+        function generateQRCode() {
+            const data = {
+                studentName: document.getElementById("studentName").innerText,
+                studentID: document.getElementById("studentID").innerText,
+                destination: document.getElementById("destination").innerText,
+                date: document.getElementById("date").innerText,
+                time: document.getElementById("time").innerText,
+                status: document.getElementById("status").innerText
+            };
+
+            document.getElementById("qrcode").innerHTML = ""; // Clear previous QR code
+            new QRCode(document.getElementById("qrcode"), JSON.stringify(data));
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(16);
+            doc.text("Gate Pass", 20, 20);
+            doc.setFontSize(12);
+            doc.text("Admno: " + document.getElementById("studentName").innerText, 20, 40);
+            doc.text("ID: " + document.getElementById("studentID").innerText, 20, 50);
+            doc.text("Destination: " + document.getElementById("destination").innerText, 20, 60);
+            doc.text("Date: " + document.getElementById("date").innerText, 20, 70);
+            doc.text("Time: " + document.getElementById("time").innerText, 20, 80);
+            doc.text("Status: " + document.getElementById("status").innerText, 20, 90);
+            
+            doc.save("Gate_Pass.pdf");
+        }
+
+        window.onload = generateQRCode;
+    </script>
+</body>
+</html>

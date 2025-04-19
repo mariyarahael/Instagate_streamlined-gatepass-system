@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Registration - InstaGate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="flex bg-gray-800 text-white rounded-xl shadow-lg w-full max-w-4xl">
+        <!-- Left Side (Image & Branding) -->
+        <div class="hidden md:flex flex-col justify-between p-8 bg-gray-700 rounded-l-xl w-1/2">
+            <h1 class="text-2xl font-bold">InstaGate</h1>
+            <div class="flex-grow flex flex-col justify-center">
+                <img src="{{url_for('static',filename='images/image5.jpg')}}" class="rounded-lg" alt="fithos">
+                <p class="mt-4 text-lg">Streamlining Hostel Pass Processing</p>
+            </div>
+            <button class="mt-4 py-2 px-4 bg-gray-600 hover:bg-gray-500 rounded-lg text-sm"></button>
+        </div>
+        
+        <!-- Right Side (Form) -->
+        <div class="w-full md:w-1/2 p-8">
+            <h2 class="text-3xl font-bold">Warden Registration</h2>
+            <p class="text-gray-400 mt-2">Already have an account? <a href="login.html" class="text-blue-400">Log in</a></p>
+            <form class="mt-4 space-y-4" action="/regward" method="post">
+                <input type="text" id="warName" placeholder="Full Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="fname" required>
+                <textarea id="warAddress" placeholder="Address" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" rows="3" name="address" required></textarea>
+                <input type="text" id="hosNameWar" placeholder="Hostel Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="hostel_name" required>
+                <input type="email" id="email" placeholder="Email" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="email" required>
+                <input type="tel" id="phone" placeholder="Phone Number" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="ph"required>
+                <input type="password" id="password" placeholder="Enter your password" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="pwd"required>
+                <input type="password" id="conPasswordw" placeholder="Confirm Password" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+                <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-md">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

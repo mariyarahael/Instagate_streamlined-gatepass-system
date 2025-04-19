@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Pass Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+    <div class="flex bg-gray-800 text-white rounded-xl shadow-lg w-full max-w-4xl">
+        <!-- Left Side (Image & Branding) -->
+        <div class="hidden md:flex flex-col justify-between p-8 bg-gray-700 rounded-l-xl w-1/2">
+            <h1 class="text-2xl font-bold">InstaGate</h1>
+            <div class="flex-grow flex flex-col justify-center">
+                <img src="{{url_for('static',filename='images/image5.jpg')}}" class="rounded-lg" alt="fithos">
+                <p class="mt-4 text-lg">Seamless Gate Pass Management</p>
+            </div>
+            <button class="mt-4 py-2 px-4 bg-gray-600 hover:bg-gray-500 rounded-lg text-sm">Back to website →</button>
+        </div>
+        
+        <!-- Right Side (Form) -->
+        <div class="w-full md:w-1/2 p-8">
+            <h2 class="text-3xl font-bold">Register for Gate Pass</h2>
+            <p class="text-gray-400 mt-2">Already have an account? <a href="/" class="text-blue-400">Log in</a></p>
+            <form class="mt-4 space-y-4" id="registrationForm">
+                <input type="text" placeholder="Full Name" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+                <select id="role" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" required>
+                    <option value="student">Student</option>
+                    <option value="parent">Parent</option>
+                    <option value="admin">Administration</option>
+                    <option value="warden">Warden</option>
+                </select>
+                <div class="flex items-center text-sm text-gray-400">
+                    <input type="checkbox" class="mr-2" required>
+                    I agree to the <a href="#" class="text-blue-400">Terms & Conditions</a>
+                </div>
+                <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-md">Register</button>
+            </form>
+            <script>
+                document.getElementById("registrationForm").addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    const role = document.getElementById("role").value;
+                    let redirectPage = "/regstud";
+                    if (role === "parent") redirectPage = "/regpar";
+                    if (role === "warden") redirectPage = "/regward";
+                    if (role === "admin") redirectPage = "/regadmin";
+                    window.location.href = redirectPage;
+                });
+            </script>
+        </div>
+    </div>
+</body>
+</html>

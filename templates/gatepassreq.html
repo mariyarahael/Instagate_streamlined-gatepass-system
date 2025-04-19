@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gate Pass Request</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-900">
+
+    <div class="bg-gray-800 text-white p-8 rounded-xl shadow-lg w-full max-w-lg">
+        <h2 class="text-2xl font-bold text-center text-blue-400">Gate Pass Request</h2>
+
+        <form id="gatePassForm" class="mt-6 space-y-4" action="/gpassreq/{{session['id']}}" method="post">
+            <div>
+                <label class="block text-sm font-medium">Type of pass</label>
+              <select id="passType" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 focus:ring-2 focus:ring-blue-400" name="pass_type" required>
+                <option value="homegoing">Homegoing</option>
+                <option value="movement">Movement</option>
+              </select>
+            </div>
+
+            <!-- Reason (Max 200 characters) -->
+            <div>
+                <label class="block text-sm font-medium">Reason (Max 200 chars)</label>
+                <textarea id="reason" maxlength="200" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600" name="reason" required></textarea>
+            </div>
+
+             <!-- Place -->
+             <div>
+                <label class="block text-sm font-medium">Place</label>
+                <input type="text" id="place" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600" name="place" required>
+            </div>
+
+            <!-- Going Date -->
+            <div>
+                <label class="block text-sm font-medium">Going Date</label>
+                <input type="date" id="goingDate" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600" name="gdate" required>
+            </div>
+
+            <!-- Going Time (12-hour format) -->
+            <div>
+                <label class="block text-sm font-medium">Going Time</label>
+                <input type="time" id="goingTime" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600" name="going_time" required>
+                <p id="goingTimeFormatted" class="text-gray-400 text-sm mt-1"></p> 
+            </div>
+
+            <!-- Return Date -->
+            <div>
+                <label class="block text-sm font-medium">Return Date</label>
+                <input type="date" id="returnDate" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600" name="rdate" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-500 rounded-md font-semibold">
+                Submit Request
+            </button>
+        </form>
+        {%if message %}
+        <p id="errorMessage" class="text-red-400 mt-2">{{message}}</p>
+        {%endif%}
+    </div>
+</body>
+</html>
+
